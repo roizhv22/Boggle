@@ -33,3 +33,4 @@ def randomize_board(dice_list=LETTERS):
             row.append(letter)
         board.append(row)
     return board
+
