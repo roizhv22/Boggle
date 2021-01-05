@@ -37,4 +37,48 @@ def check_if_path_is_valid(path):
 
 
 def find_length_n_words(n, board, words):
-    pass
+    all_words = []
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            _find_length_helper(n, board, words, [(i, j)], all_words, i, j)
+    return all_words
+
+def _find_length_helper(n, board, words, path, all_words, row, col):
+    if not 0 <= row <= 3 or not 0 <= col <= 3:
+        return
+    if len(path) == n:
+        word = is_valid_path(board, path, words)
+        if word in words.keys():
+            all_words.append((word, path))
+        return
+    _find_length_helper(n, board, words, path + [(row, col+1)], all_words,
+                        row, col+1)
+    _find_length_helper(n, board, words, path + [(row + 1, col+1)], all_words,
+                        row + 1, col+1)
+    _find_length_helper(n, board, words, path + [(row + 1, col)], all_words,
+                        row + 1, col)
+    _find_length_helper(n, board, words, path + [(row - 1, col)], all_words,
+                        row - 1, col)
+    _find_length_helper(n, board, words, path + [(row, col - 1)], all_words,
+                        row, col - 1)
+    _find_length_helper(n, board, words, path + [(row + 1, col -1)], all_words,
+                        row + 1, col -1)
+    _find_length_helper(n, board, words, path + [(row - 1, col-1)], all_words,
+                        row - 1, col -1)
+    _find_length_helper(n, board, words, path + [(row - 1, col + 1)], all_words,
+                        row - 1, col + 1)
+
+
+
+
+
+
+
+dict = load_words_dict("boggle_dict.txt")
+board = [['W', 'L', 'I', 'L'],
+['D', 'E', 'W', 'N'],
+['M', 'E', 'U', 'F'],
+['P', 'E', 'H', 'O']]
+for line in board:
+    print(line)
+print(find_length_n_words(5, board, dict))
