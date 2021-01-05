@@ -61,10 +61,10 @@ def _find_length_helper(n, board, words, path, all_words, row, col):
                         row - 1, col)
     _find_length_helper(n, board, words, path + [(row, col - 1)], all_words,
                         row, col - 1)
-    _find_length_helper(n, board, words, path + [(row + 1, col -1)], all_words,
-                        row + 1, col -1)
+    _find_length_helper(n, board, words, path + [(row + 1, col - 1)], all_words,
+                        row + 1, col - 1)
     _find_length_helper(n, board, words, path + [(row - 1, col-1)], all_words,
-                        row - 1, col -1)
+                        row - 1, col - 1)
     _find_length_helper(n, board, words, path + [(row - 1, col + 1)], all_words,
                         row - 1, col + 1)
 
@@ -76,9 +76,9 @@ def _find_length_helper(n, board, words, path, all_words, row, col):
 
 dict = load_words_dict("boggle_dict.txt")
 board = [['W', 'L', 'I', 'L'],
-['D', 'E', 'W', 'N'],
-['M', 'E', 'U', 'F'],
-['P', 'E', 'H', 'O']]
+        ['D', 'E', 'W', 'N'],
+        ['M', 'E', 'U', 'F'],
+        ['P', 'E', 'H', 'O']]
 for line in board:
     print(line)
 print(find_length_n_words(5, board, dict))
