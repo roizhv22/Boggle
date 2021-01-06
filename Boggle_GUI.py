@@ -21,7 +21,7 @@ class BoggleGui():
         self.displays_frame = tk.Frame(self.root, bg="ivory2",
                                        highlightthickness=5,
                                        highlightbackground="purple")
-
+        self.guess = ""
 
     def run(self):
         self.root.mainloop()
@@ -34,6 +34,7 @@ class BoggleGui():
         self.displays_frame.place(height=400, width=200, x=400, y=100)
         self.create_board()
         self.add_displays()
+        self.add_top_display()
 
 
     def create_board(self):
@@ -45,21 +46,28 @@ class BoggleGui():
                 self.make_cube(i, j)
 
     def make_cube(self, i, j):
-        cube = tk.Button(self.grid_frame, text="a", font=("gisha", 24), bg="darkseagreen")
+        cube = tk.Button(self.grid_frame, text="a", font=("gisha", 24), bg="darkseagreen", command=self.add_to_guess)
         cube.grid(row=i, column=j, sticky=tk.NSEW)
+
+    def add_to_guess(self):
+        self.guess += "a"
 
     def add_displays(self):
         clock_label = tk.Label(self.displays_frame, text="3:00",font=("arial", 24),bg="green")
         clock_label.place(height=80, width=190)
         score_label = tk.Label(self.displays_frame, text="42,780", font=("arial", 24),bg="yellow")
-        score_label.place(y=80,height=100, width=190)
+        score_label.place(y=80, height=100, width=190)
         your_words = tk.Label(self.displays_frame, text="your words: ",font=("arial", 24),bg="blue")
         your_words.place(y=180,height=40, width=190)
         guessed_words = tk.Label(self.displays_frame, text="bla ,nope ",font=("arial", 24),bg="blue")
         guessed_words.place(y=220, height=170, width=190)
 
     def add_top_display(self):
-        pass
+
+        submit_buttoon = tk.Button(self.top_frame, text="submit", font=("arial", 24),bg="green")
+        submit_buttoon.place(x=400,height=90, width=190)
+        current_guesse = tk.Label(self.top_frame, text=self.guess, font=("gisha", 24))
+        current_guesse.place(height=90,width=390)
 
 
 BoggleGui().run()

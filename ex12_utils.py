@@ -46,6 +46,8 @@ def find_length_n_words(n, board, words):
 def _find_length_helper(n, board, words, path, all_words, row, col):
     if not 0 <= row <= 3 or not 0 <= col <= 3:
         return
+    if (row, col) in path[:-1]:
+        return
     if len(path) == n:
         word = is_valid_path(board, path, words)
         if word in words.keys():
@@ -81,4 +83,5 @@ board = [['W', 'L', 'I', 'L'],
         ['P', 'E', 'H', 'O']]
 for line in board:
     print(line)
-print(find_length_n_words(5, board, dict))
+for i in range(3, 12):
+    print(find_length_n_words(i, board, dict))
