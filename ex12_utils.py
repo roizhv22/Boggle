@@ -10,6 +10,11 @@ def load_words_dict(file_path):
     return words_dict
 
 
+def is_word_valid(word, words):
+    if word in words.keys():
+        return True
+
+
 def is_valid_path(board, path, words):
     word = ""
     used_coord = []
@@ -45,7 +50,8 @@ def find_length_n_words(n, board, words):
     return all_words
 
 
-def _find_length_helper(n, board, words, path, all_words, row, col, used_cubes):
+def _find_length_helper(n, board, words, path, all_words, row, col,
+                        used_cubes):
     if not 0 <= row <= 3 or not 0 <= col <= 3:
         return
     # if (row, col) in used_cubes:
@@ -60,7 +66,7 @@ def _find_length_helper(n, board, words, path, all_words, row, col, used_cubes):
     _find_length_helper(n, board, words, path + [(row, col + 1)], all_words,
                         row, col + 1, used_cubes)
     _find_length_helper(n, board, words, path + [(row + 1, col + 1)],
-                        all_words,row + 1, col + 1, used_cubes)
+                        all_words, row + 1, col + 1, used_cubes)
     _find_length_helper(n, board, words, path + [(row + 1, col)], all_words,
                         row + 1, col, used_cubes)
     _find_length_helper(n, board, words, path + [(row - 1, col)], all_words,
@@ -81,14 +87,13 @@ def _find_length_helper(n, board, words, path, all_words, row, col, used_cubes):
 def get_score_from_word(word):
     return len(word) ** 2
 
-
-dict = load_words_dict("boggle_dict.txt")
-board = [['W', 'L', 'I', 'L'],
-         ['D', 'E', 'W', 'N'],
-         ['M', 'E', 'U', 'F'],
-         ['P', 'E', 'H', 'O']]
-for line in board:
-    print(line)
-
-for i in range(1, 17):
-    print(find_length_n_words(i, board, dict))
+# dict = load_words_dict("boggle_dict.txt")
+# board = [['W', 'L', 'I', 'L'],
+#          ['D', 'E', 'W', 'N'],
+#          ['M', 'E', 'U', 'F'],
+#          ['P', 'E', 'H', 'O']]
+# for line in board:
+#     print(line)
+#
+# for i in range(1, 17):
+#     print(find_length_n_words(i, board, dict))

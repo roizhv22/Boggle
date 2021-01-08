@@ -32,6 +32,8 @@ class BoggleGui():
         self.clock_label = tk.Label(self.displays_frame)
         self.score = 0
 
+        self.cubes = {}
+        self.create_board()
 
     def place_welcome_win(self):
         self.play_button.place(x=260, y=260)
@@ -52,7 +54,6 @@ class BoggleGui():
         self.top_frame.place(height=100, width=600)
         self.grid_frame.place(height=400, width=400, y=100)
         self.displays_frame.place(height=400, width=200, x=400, y=100)
-        self.create_board()
         self.add_displays()
         self.add_top_display()
 
@@ -66,9 +67,15 @@ class BoggleGui():
 
     def make_cube(self, i, j):
         cube = tk.Button(self.grid_frame, text=self.board[i][j],
-                         font=("gisha", 24), \
-                         bg="floral white")
+                         font=("gisha", 24), bg="floral white")
         cube.grid(row=i, column=j, sticky=tk.NSEW)
+        self.cubes[self.board[i][j]] = cube
+
+    def get_cubes(self):
+        return list(self.cubes.keys())
+
+    def set_cube_cmd(self, cube, cmd):
+        self.cubes[cube].configure(command=cmd)
 
     def cube_pressed(self):
         pass
@@ -98,7 +105,7 @@ class BoggleGui():
             else:
                 clock_time = clock_time[:2] + str(int(clock_time[2:]) - 1)
         self.clock_label["text"] = clock_time
-        self.root.after(10, self.clock_animate)
+        self.root.after(1000, self.clock_animate)
 
     def add_displays(self):
         self.add_clock()
@@ -119,6 +126,15 @@ class BoggleGui():
         self.guess_box.config(font=("gisha", 24))
         self.guess_box.place(height=90, width=390)
 
+    def change_guess_box(self, chr):
+        self.guess_box["text"] += chr
+
+    def get_guess_box(self):
+        return self.guess_box
+
+    def clear_guess_box(self):
+        self.guess_box["text"] = ""
+
     def go_to_finish_screen(self):
         out_of_time_win = tk.Toplevel(borderwidth=200)
         out_of_time_win.title("OUT OF TIME")
@@ -129,10 +145,14 @@ class BoggleGui():
             self.root.wm_attributes("-disabled", False)
             self.go_to_exit()
 
-        popup_label = tk.Label(out_of_time_win, text="Time's up!",font=("arial", 24))
+        popup_label = tk.Label(out_of_time_win, text="Time's up!",
+                               font=("arial", 24))
         popup_label.pack()
-        score_label = tk.Label(out_of_time_win, text="your final score is " + str(self.score), font=("arial", 24))
-        popup_button = tk.Button(out_of_time_win, text="play again", command=pop_pressed, font=("ariel", 30))
+        score_label = tk.Label(out_of_time_win,
+                               text="your final score is " + str(self.score),
+                               font=("arial", 24))
+        popup_button = tk.Button(out_of_time_win, text="play again",
+                                 command=pop_pressed, font=("ariel", 30))
         score_label.pack()
         popup_button.pack()
 
@@ -140,7 +160,6 @@ class BoggleGui():
         pass
 
 
-
-
-
-BoggleGui().run()
+b = BoggleGui()
+b.run()
+print(b.cubes)
