@@ -30,7 +30,9 @@ class BoggleGui():
         self.submit_button = tk.Button(self.top_frame)
         self.guess_box = tk.Label(self.top_frame)
         self.clock_label = tk.Label(self.displays_frame)
-        self.score = 0
+
+        self.score_label = tk.Label(self.displays_frame)
+        self.guessed_words = tk.Label(self.displays_frame)
 
         self.cubes = {}
         self.create_board()
@@ -69,22 +71,23 @@ class BoggleGui():
         cube = tk.Button(self.grid_frame, text=self.board[i][j],
                          font=("gisha", 24), bg="floral white")
         cube.grid(row=i, column=j, sticky=tk.NSEW)
-        self.cubes[self.board[i][j]] = cube
+        self.cubes[(i, j)] = cube
 
     def get_cubes(self):
         return list(self.cubes.keys())
 
     def set_cube_cmd(self, cube, cmd):
-        self.cubes[cube].configure(command=cmd)
+        button = self.cubes[cube]
+        button.configure(command=cmd)
 
     def cube_pressed(self):
         pass
 
     def add_clock(self):
-        self.clock_label.config(text="3:00", font=("crackman", 24),
-                                bg="light grey",
-                                borderwidth=5, relief="flat",
-                                highlightcolor="grey")
+        self.clock_label.config(text="3:00", font=("gisha", 24),
+                                bg="grey",
+                                borderwidth=5, relief="ridge",
+                                highlightcolor="black")
         self.clock_label.place(height=80, width=190)
         self.clock_animate()
 
@@ -109,31 +112,58 @@ class BoggleGui():
 
     def add_displays(self):
         self.add_clock()
-        score_label = tk.Label(self.displays_frame, text="42,780",
-                               font=("crackman", 24), bg="yellow")
-        score_label.place(y=80, height=100, width=190)
-        your_words = tk.Label(self.displays_frame, text="your words: ",
-                              font=("crackman", 24), bg="blue")
-        your_words.place(y=180, height=40, width=190)
-        guessed_words = tk.Label(self.displays_frame, text="bla ,nope ",
-                                 font=("crackman", 24), bg="blue")
-        guessed_words.place(y=220, height=170, width=190)
+        self.score_label.config(text="0",
+                                font=("gisha", 24), bg="grey", borderwidth=5,
+                                relief="ridge",
+                                highlightcolor="black")
+        self.score_label.place(y=80, height=100, width=190)
+        self.guessed_words.config(text="",
+                                  font=("gisha", 15), bg="grey", borderwidth=5,
+                                  relief="ridge",
+                                  highlightcolor="black", anchor="nw",
+                                  wraplength=190, justify="left")
+        self.guessed_words.place(y=180, height=210, width=190)
 
     def add_top_display(self):
         self.submit_button.config(text="submit", font=("arial", 24),
-                                  bg="green")
+                                  bg="gold2")
         self.submit_button.place(x=400, height=90, width=190)
         self.guess_box.config(font=("gisha", 24))
         self.guess_box.place(height=90, width=390)
 
     def change_guess_box(self, chr):
-        self.guess_box["text"] += chr
-
-    def get_guess_box(self):
-        return self.guess_box
+        current_str = self.guess_box.cget("text")
+        current_str += chr
+        self.guess_box.configure(text=current_str)
 
     def clear_guess_box(self):
         self.guess_box["text"] = ""
+
+    def add_to_guessed(self, word):
+        self.guessed_words["text"] += f"{word},  "
+
+    def pop_up_guess(self, flag):
+        def destroy():
+            pop_up.destroy()
+
+        pop_up = tk.Toplevel(borderwidth=15)
+        popup_label = tk.Label(pop_up, text="",
+                               font=("gisha", 15))
+        popup_label.pack()
+        pop_up.after(500, destroy)
+        if flag == 0:
+            pop_up.title("Correct!")
+            popup_label.config(text="You got a word! "
+                                    "Keep going")
+        elif flag == 1:
+            pop_up.title("Wrong!")
+            popup_label.config(text="Wrong, keep trying!")
+        elif flag == 2:
+            pop_up.title("Guessed")
+            popup_label.config(text="You already guessed this word!")
+
+    def change_score_screen(self, score):
+        self.score_label.config(text=str(score))
 
     def go_to_finish_screen(self):
         out_of_time_win = tk.Toplevel(borderwidth=200)
@@ -160,6 +190,7 @@ class BoggleGui():
         pass
 
 
-b = BoggleGui()
-b.run()
-print(b.cubes)
+if __name__ == "__main__":
+    a = BoggleGui()
+    print(a.cubes)
+    a.run()
