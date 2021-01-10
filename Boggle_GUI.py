@@ -25,7 +25,7 @@ class BoggleGui():
         self.grid_frame = tk.Frame(self.root, bg="ivory2", highlightthickness=5
                                    , highlightbackground="azure3")
         self.top_frame = tk.Frame(self.root, bg="ivory2", highlightthickness=5,
-                                  highlightbackground="black")
+                                  highlightbackground="azure3",relief="ridge")
 
         self.submit_button = tk.Button(self.top_frame)
         self.guess_box = tk.Label(self.top_frame)
@@ -85,7 +85,7 @@ class BoggleGui():
 
     def add_clock(self):
         self.clock_label.config(text="3:00", font=("gisha", 24),
-                                bg="grey",
+                                bg="azure",
                                 borderwidth=5, relief="ridge",
                                 highlightcolor="black")
         self.clock_label.place(height=80, width=190)
@@ -113,23 +113,22 @@ class BoggleGui():
     def add_displays(self):
         self.add_clock()
         self.score_label.config(text="0",
-                                font=("gisha", 24), bg="grey", borderwidth=5,
-                                relief="ridge",
-                                highlightcolor="black")
+                                font=("gisha", 24), bg="azure", fg = "red", borderwidth=5,
+                                relief="ridge", highlightcolor="black")
         self.score_label.place(y=80, height=100, width=190)
         self.guessed_words.config(text="",
-                                  font=("gisha", 15), bg="grey", borderwidth=5,
-                                  relief="ridge",
-                                  highlightcolor="black", anchor="nw",
+                                  font=("gisha", 15), bg="azure", borderwidth=5,
+                                  relief="ridge", anchor="nw",
                                   wraplength=190, justify="left")
         self.guessed_words.place(y=180, height=210, width=190)
 
     def add_top_display(self):
-        self.submit_button.config(text="submit", font=("arial", 24),
-                                  bg="gold2")
+        self.submit_button.config(text="Submit", font=("Gisha", 30),
+                                  bg="sky blue")
         self.submit_button.place(x=400, height=90, width=190)
-        self.guess_box.config(font=("gisha", 24))
-        self.guess_box.place(height=90, width=390)
+        self.guess_box.config(font=("gisha", 24), borderwidth=5,
+                                relief="ridge")
+        self.guess_box.place(height=90, width=400)
 
     def change_guess_box(self, chr):
         current_str = self.guess_box.cget("text")
@@ -179,7 +178,8 @@ class BoggleGui():
                                font=("arial", 24))
         popup_label.pack()
         score_label = tk.Label(out_of_time_win,
-                               text="your final score is " + str(self.score),
+                               text="your final score is " +
+                                    str(self.score_label.cget("text")),
                                font=("arial", 24))
         popup_button = tk.Button(out_of_time_win, text="play again",
                                  command=pop_pressed, font=("ariel", 30))

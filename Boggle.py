@@ -10,7 +10,6 @@ class BoggleController:
         self.gui = BoggleGui(self.board)
         self.model = Boggle_Model("boggle_dict.txt", self.board)
 
-
         for cube in self.gui.get_cubes():
             action = self.create_button_action(cube)
             self.gui.set_cube_cmd(cube, action)
@@ -22,7 +21,12 @@ class BoggleController:
             self.gui.change_guess_box(self.model.dict_of_letters_and_coords[cube_cord])
             neighbors = self.model.return_all_neighbors(cube_cord)
             for cube in self.gui.cubes.keys():
-                if cube in neighbors and cube not in self.model.current_guess:
+                if cube in self.model.current_guess:
+                    self.gui.cubes[cube]["state"] = "disabled"
+                    self.gui.cubes[cube].config(bg = "dim gray")
+                    self.gui.cubes[cube]["disabledforeground"] = "gray"
+
+                elif cube in neighbors and cube not in self.model.current_guess:
                     self.gui.cubes[cube]["state"] = "normal"
                     self.gui.cubes[cube].configure(fg = "lime green")
                 else:
@@ -59,7 +63,7 @@ class BoggleController:
     def set_gui_buttons_to_defualt(self):
         for cube in self.gui.cubes.keys():
             self.gui.cubes[cube]["state"] = "normal"
-            self.gui.cubes[cube].configure(fg="black")
+            self.gui.cubes[cube].configure(fg="black", bg="floral white")
 
     def run(self):
         self.gui.run()
