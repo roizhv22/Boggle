@@ -25,7 +25,7 @@ class BoggleGui():
         self.grid_frame = tk.Frame(self.root, bg="ivory2", highlightthickness=5
                                    , highlightbackground="azure3")
         self.top_frame = tk.Frame(self.root, bg="ivory2", highlightthickness=5,
-                                  highlightbackground="azure3",relief="ridge")
+                                  highlightbackground="azure3", relief="ridge")
 
         self.submit_button = tk.Button(self.top_frame)
         self.guess_box = tk.Label(self.top_frame)
@@ -36,6 +36,8 @@ class BoggleGui():
 
         self.cubes = {}
         self.create_board()
+
+        self.play_again = ""
 
     def place_welcome_win(self):
         self.play_button.place(x=260, y=260)
@@ -113,11 +115,13 @@ class BoggleGui():
     def add_displays(self):
         self.add_clock()
         self.score_label.config(text="0",
-                                font=("gisha", 24), bg="azure", fg = "red", borderwidth=5,
+                                font=("gisha", 24), bg="azure", fg="red",
+                                borderwidth=5,
                                 relief="ridge", highlightcolor="black")
         self.score_label.place(y=80, height=100, width=190)
         self.guessed_words.config(text="",
-                                  font=("gisha", 15), bg="azure", borderwidth=5,
+                                  font=("gisha", 15), bg="azure",
+                                  borderwidth=5,
                                   relief="ridge", anchor="nw",
                                   wraplength=190, justify="left")
         self.guessed_words.place(y=180, height=210, width=190)
@@ -127,7 +131,7 @@ class BoggleGui():
                                   bg="sky blue")
         self.submit_button.place(x=400, height=90, width=190)
         self.guess_box.config(font=("gisha", 24), borderwidth=5,
-                                relief="ridge")
+                              relief="ridge")
         self.guess_box.place(height=90, width=400)
 
     def change_guess_box(self, chr):
@@ -165,32 +169,33 @@ class BoggleGui():
         self.score_label.config(text=str(score))
 
     def go_to_finish_screen(self):
-        out_of_time_win = tk.Toplevel(borderwidth=200)
+        out_of_time_win = tk.Toplevel(borderwidth=100)
         out_of_time_win.title("OUT OF TIME")
         self.root.wm_attributes("-disabled", True)
 
         def pop_pressed():
             out_of_time_win.destroy()
-            self.root.wm_attributes("-disabled", False)
-            self.go_to_exit()
+            self.root.destroy()
 
         popup_label = tk.Label(out_of_time_win, text="Time's up!",
-                               font=("arial", 24))
+                               font=("Gisha", 24))
         popup_label.pack()
         score_label = tk.Label(out_of_time_win,
-                               text="your final score is " +
+                               text="Your final score is " +
                                     str(self.score_label.cget("text")),
-                               font=("arial", 24))
-        popup_button = tk.Button(out_of_time_win, text="play again",
-                                 command=pop_pressed, font=("ariel", 30))
+                               font=("Gisha", 36))
+        play_again_pop_up = tk.Button(out_of_time_win,text="play again",
+                                      command = self.play_again,
+                                       font=("Gisha", 24))
+        popup_button2 = tk.Button(out_of_time_win, text="Quit",
+                                  command=pop_pressed, font=("Gisha", 24))
         score_label.pack()
-        popup_button.pack()
+        play_again_pop_up.pack(side = "left")
+        popup_button2.pack(side = "right")
 
-    def go_to_exit(self):
-        pass
+    def gui_destroy(self):
+        self.root.destroy()
 
 
 if __name__ == "__main__":
-    a = BoggleGui()
-    print(a.cubes)
-    a.run()
+    pass

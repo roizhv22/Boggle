@@ -15,6 +15,7 @@ class BoggleController:
             self.gui.set_cube_cmd(cube, action)
 
         self.submit_action()
+        self.gui.play_again = self.play_again
 
     def create_button_action(self, cube_cord):
         def action():
@@ -67,6 +68,27 @@ class BoggleController:
 
     def run(self):
         self.gui.run()
+
+    def restart(self):
+        self.board = randomize_board()
+        self.gui = BoggleGui(self.board)
+        self.model = Boggle_Model("boggle_dict.txt", self.board)
+
+        for cube in self.gui.get_cubes():
+            action = self.create_button_action(cube)
+            self.gui.set_cube_cmd(cube, action)
+
+        self.submit_action()
+        self.gui.play_again = self.play_again
+
+        self.gui.root.mainloop()
+
+    def play_again(self):
+        self.gui.gui_destroy()
+        self.restart()
+
+
+
 
 a = BoggleController()
 a.run()
