@@ -46,54 +46,51 @@ def find_length_n_words(n, board, words):
     all_words = []
     for i in range(len(board)):
         for j in range(len(board[0])):
-            _find_length_helper(n, board, words, [(i, j)], all_words, i, j, [])
+            _find_length_helper(n, board, words, [(i, j)], all_words, i, j)
     return all_words
 
 
-def _find_length_helper(n, board, words, path, all_words, row, col,
-                        used_cubes):
+def _find_length_helper(n, board, words, path, all_words, row, col):
     if not 0 <= row <= 3 or not 0 <= col <= 3:
         return
-    # if (row, col) in used_cubes:
-    #     return
-    # else:
-    #     used_cubes.append((row, col))
+    if (row, col) in path[:-1]:
+        return
     if len(path) == n:
         word = is_valid_path(board, path, words)
         if word in words.keys():
             all_words.append((word, path))
         return
     _find_length_helper(n, board, words, path + [(row, col + 1)], all_words,
-                        row, col + 1, used_cubes)
+                        row, col + 1)
     _find_length_helper(n, board, words, path + [(row + 1, col + 1)],
-                        all_words, row + 1, col + 1, used_cubes)
+                        all_words, row + 1, col + 1)
     _find_length_helper(n, board, words, path + [(row + 1, col)], all_words,
-                        row + 1, col, used_cubes)
+                        row + 1, col)
     _find_length_helper(n, board, words, path + [(row - 1, col)], all_words,
-                        row - 1, col, used_cubes)
+                        row - 1, col)
     _find_length_helper(n, board, words, path + [(row, col - 1)], all_words,
-                        row, col - 1, used_cubes)
+                        row, col - 1)
     _find_length_helper(n, board, words, path + [(row + 1, col - 1)],
                         all_words,
-                        row + 1, col - 1, used_cubes)
+                        row + 1, col - 1)
     _find_length_helper(n, board, words, path + [(row - 1, col - 1)],
                         all_words,
-                        row - 1, col - 1, used_cubes)
+                        row - 1, col - 1)
     _find_length_helper(n, board, words, path + [(row - 1, col + 1)],
                         all_words,
-                        row - 1, col + 1, used_cubes)
+                        row - 1, col + 1)
 
 
 def get_score_from_word(word):
     return len(word) ** 2
+if __name__ == '__main__':
+    dict1 = load_words_dict("boggle_dict.txt")
+    board = [['W', 'L', 'I', 'L'],
+             ['D', 'E', 'W', 'N'],
+             ['M', 'E', 'U', 'F'],
+             ['P', 'E', 'H', 'O']]
+    for line in board:
+        print(line)
 
-# dict = load_words_dict("boggle_dict.txt")
-# board = [['W', 'L', 'I', 'L'],
-#          ['D', 'E', 'W', 'N'],
-#          ['M', 'E', 'U', 'F'],
-#          ['P', 'E', 'H', 'O']]
-# for line in board:
-#     print(line)
-#
-# for i in range(1, 17):
-#     print(find_length_n_words(i, board, dict))
+    for i in range(3, 17):
+        print(find_length_n_words(i, board, dict1))

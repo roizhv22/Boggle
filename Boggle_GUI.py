@@ -6,17 +6,17 @@ TEST_BOARD = [['D', 'S', 'O', 'R'],
               ['M', 'I', 'A', 'O']]
 
 
-class BoggleGui():
+class BoggleGui:
     def __init__(self, board=TEST_BOARD):
         self.root = tk.Tk()
         self.board = board
-        self.get_root()
+        self.set_root()
 
         self.play_button = tk.Button(text="play", font=("gisha", 26),
-                                     bg="peachpuff3",
+                                     bg="rosybrown3",activebackground="rosybrown4",
                                      command=self.show_main_game_screen)
         self.welcome_label = tk.Label(text="welcome to the \nboggle jungle!!",
-                                      font=("gisha", 36), bg="peachpuff2")
+                                      font=("gisha", 36), bg="cornsilk2")
         self.place_welcome_win()
 
         self.displays_frame = tk.Frame(self.root, bg="ivory2",
@@ -41,11 +41,11 @@ class BoggleGui():
         self.play_button.place(x=260, y=260)
         self.welcome_label.place(x=140, y=100)
 
-    def get_root(self):
+    def set_root(self):
         self.root.geometry("600x500")
         self.root.resizable(False, False)
         self.root.title("2021-Boggle!")
-        self.root["bg"] = "peachpuff2"
+        self.root["bg"] = "cornsilk2"
 
     def run(self):
         self.root.mainloop()
@@ -69,7 +69,8 @@ class BoggleGui():
 
     def make_cube(self, i, j):
         cube = tk.Button(self.grid_frame, text=self.board[i][j],
-                         font=("gisha", 24), bg="floral white")
+                         font=("gisha", 24), bg="floral white",
+                         activebackground="gainsboro")
         cube.grid(row=i, column=j, sticky=tk.NSEW)
         self.cubes[(i, j)] = cube
 
@@ -80,8 +81,6 @@ class BoggleGui():
         button = self.cubes[cube]
         button.configure(command=cmd)
 
-    def cube_pressed(self):
-        pass
 
     def add_clock(self):
         self.clock_label.config(text="3:00", font=("gisha", 24),
@@ -124,7 +123,7 @@ class BoggleGui():
 
     def add_top_display(self):
         self.submit_button.config(text="Submit", font=("Gisha", 30),
-                                  bg="sky blue")
+                                  bg="sky blue", activebackground="steelBlue")
         self.submit_button.place(x=400, height=90, width=190)
         self.guess_box.config(font=("gisha", 24), borderwidth=5,
                                 relief="ridge")
