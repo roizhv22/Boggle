@@ -17,19 +17,25 @@ class BoggleController:
         self.submit_action()
         self.gui.play_again = self.play_again
 
+        self.clock_flag = True
+
     def create_button_action(self, cube_cord):
         def action():
             self.gui.change_guess_box(self.model.dict_of_letters_and_coords[cube_cord])
             neighbors = self.model.return_all_neighbors(cube_cord)
+            if self.clock_flag:
+                self.gui.clock_animate()
+                self.clock_flag = False
             for cube in self.gui.cubes.keys():
                 if cube in self.model.current_guess:
                     self.gui.cubes[cube]["state"] = "disabled"
-                    self.gui.cubes[cube].config(bg = "dim gray")
+                    self.gui.cubes[cube].config(bg="gray")
                     self.gui.cubes[cube]["disabledforeground"] = "gray"
 
                 elif cube in neighbors and cube not in self.model.current_guess:
                     self.gui.cubes[cube]["state"] = "normal"
-                    self.gui.cubes[cube].configure(fg = "lime green")
+                    self.gui.cubes[cube].configure(fg="lime green")
+
                 else:
                     self.gui.cubes[cube]["state"] = "disabled"
                     self.gui.cubes[cube]["disabledforeground"] = "red3"

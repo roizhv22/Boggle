@@ -83,6 +83,7 @@ def _find_length_helper(n, board, words, path, all_words, row, col):
 
 def get_score_from_word(word):
     return len(word) ** 2
+
 if __name__ == '__main__':
     dict1 = load_words_dict("boggle_dict.txt")
     board = [['W', 'L', 'I', 'L'],

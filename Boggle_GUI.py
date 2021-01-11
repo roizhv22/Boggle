@@ -1,4 +1,5 @@
 import tkinter as tk
+import pygame as game
 
 TEST_BOARD = [['D', 'S', 'O', 'R'],
               ['T', 'E', 'W', 'E'],
@@ -9,14 +10,18 @@ TEST_BOARD = [['D', 'S', 'O', 'R'],
 class BoggleGui:
     def __init__(self, board=TEST_BOARD):
         self.root = tk.Tk()
+        game.init()
         self.board = board
         self.set_root()
 
         self.play_button = tk.Button(text="play", font=("gisha", 26),
-                                     bg="rosybrown3",activebackground="rosybrown4",
+                                     bg="azure",activebackground="lime green",
                                      command=self.show_main_game_screen)
-        self.welcome_label = tk.Label(text="welcome to the \nboggle jungle!!",
-                                      font=("gisha", 36), bg="cornsilk2")
+        self.boggle_img = tk.PhotoImage(file="Edited.png")
+        self.boggle_img = self.boggle_img.subsample(3)
+
+        self.welcome_label = tk.Label(image = self.boggle_img, text = "Let's play Boggle",
+                                      font=("gisha", 36), bg = "DeepSkyBlue2")
         self.place_welcome_win()
 
         self.displays_frame = tk.Frame(self.root, bg="ivory2",
@@ -40,14 +45,14 @@ class BoggleGui:
         self.play_again = ""
 
     def place_welcome_win(self):
-        self.play_button.place(x=260, y=260)
-        self.welcome_label.place(x=140, y=100)
+        self.play_button.place(x=250, y=410)
+        self.welcome_label.place(x=125, y=5)
 
     def set_root(self):
         self.root.geometry("600x500")
         self.root.resizable(False, False)
         self.root.title("2021-Boggle!")
-        self.root["bg"] = "cornsilk2"
+        self.root["bg"] = "DeepSkyBlue2"
 
     def run(self):
         self.root.mainloop()
@@ -55,6 +60,8 @@ class BoggleGui:
     def show_main_game_screen(self):
         self.play_button.place_forget()
         self.welcome_label.place_forget()
+        game.mixer_music.load("sounds/start_game.mp3")
+        game.mixer_music.play()
         self.top_frame.place(height=100, width=600)
         self.grid_frame.place(height=400, width=400, y=100)
         self.displays_frame.place(height=400, width=200, x=400, y=100)
@@ -72,7 +79,7 @@ class BoggleGui:
     def make_cube(self, i, j):
         cube = tk.Button(self.grid_frame, text=self.board[i][j],
                          font=("gisha", 24), bg="floral white",
-                         activebackground="gainsboro")
+                         activebackground="Red")
         cube.grid(row=i, column=j, sticky=tk.NSEW)
         self.cubes[(i, j)] = cube
 
@@ -83,14 +90,12 @@ class BoggleGui:
         button = self.cubes[cube]
         button.configure(command=cmd)
 
-
     def add_clock(self):
         self.clock_label.config(text="3:00", font=("gisha", 24),
                                 bg="azure",
                                 borderwidth=5, relief="ridge",
                                 highlightcolor="black")
         self.clock_label.place(height=80, width=190)
-        self.clock_animate()
 
     def clock_animate(self):
         clock_time = self.clock_label["text"]
@@ -157,12 +162,18 @@ class BoggleGui:
             pop_up.title("Correct!")
             popup_label.config(text="You got a word! "
                                     "Keep going")
+            game.mixer_music.load("sounds/correct.mp3")
+            game.mixer_music.play()
         elif flag == 1:
             pop_up.title("Wrong!")
             popup_label.config(text="Wrong, keep trying!")
+            game.mixer_music.load("sounds/neg 2.mp3")
+            game.mixer_music.play()
         elif flag == 2:
             pop_up.title("Guessed")
             popup_label.config(text="You already guessed this word!")
+            game.mixer_music.load("sounds/neg 1.mp3")
+            game.mixer_music.play()
 
     def change_score_screen(self, score):
         self.score_label.config(text=str(score))
@@ -197,4 +208,4 @@ class BoggleGui:
 
 
 if __name__ == "__main__":
-    pass
+    BoggleGui().run()
