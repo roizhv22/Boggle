@@ -42,6 +42,8 @@ class BoggleGui:
         self.cubes = {}
         self.create_board()
 
+        self.clock_after_id = ""
+
         self.play_again = ""
 
     def place_welcome_win(self):
@@ -51,8 +53,9 @@ class BoggleGui:
     def set_root(self):
         self.root.geometry("600x500")
         self.root.resizable(False, False)
-        self.root.title("2021-Boggle!")
+        self.root.title("Boggle!")
         self.root["bg"] = "DeepSkyBlue2"
+
 
     def run(self):
         self.root.mainloop()
@@ -78,8 +81,8 @@ class BoggleGui:
 
     def make_cube(self, i, j):
         cube = tk.Button(self.grid_frame, text=self.board[i][j],
-                         font=("gisha", 24), bg="floral white",
-                         activebackground="Red")
+                         font=("gisha", 24),fg= "white", bg="DarkOrange1",
+                         activebackground="DarkOrange3")
         cube.grid(row=i, column=j, sticky=tk.NSEW)
         self.cubes[(i, j)] = cube
 
@@ -114,7 +117,7 @@ class BoggleGui:
             else:
                 clock_time = clock_time[:2] + str(int(clock_time[2:]) - 1)
         self.clock_label["text"] = clock_time
-        self.root.after(1000, self.clock_animate)
+        self.clock_after_id = self.root.after(1000, self.clock_animate)
 
     def add_displays(self):
         self.add_clock()
@@ -204,8 +207,13 @@ class BoggleGui:
         popup_button2.pack(side = "right")
 
     def gui_destroy(self):
-        self.root.destroy()
+        try:
+            self.root.after_cancel(self.clock_after_id)
+        except:
+            pass
+        finally:
+            self.root.destroy()
 
 
 if __name__ == "__main__":
-    BoggleGui().run()
+    pass

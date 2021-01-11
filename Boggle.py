@@ -2,6 +2,7 @@ from Boggle_GUI import BoggleGui
 from Boggle_Model import Boggle_Model
 from ex12_utils import *
 from boggle_board_randomizer import *
+import tkinter as tk
 
 
 class BoggleController:
@@ -19,6 +20,16 @@ class BoggleController:
 
         self.clock_flag = True
 
+        self.create_menu()
+
+    def create_menu(self):
+        menubar = tk.Menu(self.gui.root)
+        game_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Game", menu=game_menu)
+        game_menu.add_command(label="Restart Game", command=self.play_again)
+        game_menu.add_command(label="Quit", command=self.gui.gui_destroy)
+        self.gui.root.config(menu=menubar)
+
     def create_button_action(self, cube_cord):
         def action():
             self.gui.change_guess_box(self.model.dict_of_letters_and_coords[cube_cord])
@@ -29,12 +40,12 @@ class BoggleController:
             for cube in self.gui.cubes.keys():
                 if cube in self.model.current_guess:
                     self.gui.cubes[cube]["state"] = "disabled"
-                    self.gui.cubes[cube].config(bg="gray")
-                    self.gui.cubes[cube]["disabledforeground"] = "gray"
+                    self.gui.cubes[cube].config(bg="DarkOrange4")
+                    self.gui.cubes[cube]["disabledforeground"] = "DarkOrange4"
 
                 elif cube in neighbors and cube not in self.model.current_guess:
                     self.gui.cubes[cube]["state"] = "normal"
-                    self.gui.cubes[cube].configure(fg="lime green")
+                    self.gui.cubes[cube].configure(fg="white")
 
                 else:
                     self.gui.cubes[cube]["state"] = "disabled"
@@ -70,7 +81,7 @@ class BoggleController:
     def set_gui_buttons_to_defualt(self):
         for cube in self.gui.cubes.keys():
             self.gui.cubes[cube]["state"] = "normal"
-            self.gui.cubes[cube].configure(fg="black", bg="floral white")
+            self.gui.cubes[cube].configure(fg="white", bg="DarkOrange1")
 
     def run(self):
         self.gui.run()
@@ -86,8 +97,10 @@ class BoggleController:
 
         self.submit_action()
         self.gui.play_again = self.play_again
+        self.clock_flag = True
+        self.create_menu()
 
-        self.gui.root.mainloop()
+        self.run()
 
     def play_again(self):
         self.gui.gui_destroy()
