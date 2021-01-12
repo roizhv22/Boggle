@@ -205,6 +205,14 @@ class BoggleGui:
                                   command=pop_pressed, font=("Gisha", 24),
                                   bg="azure", activebackground="lime green")
         score_label.pack()
+        if self.score_label.cget("text") != "0":
+            game.mixer_music.load("sounds/kids_cheering.mp3")
+            game.mixer_music.play()
+        else:
+            game.mixer_music.load("sounds/Kids Booing Sound Effect "
+                                  "(320 kbps).mp3")
+            game.mixer_music.play()
+
         play_again_pop_up.pack(side="left")
         popup_button2.pack(side="right")
 
