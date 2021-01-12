@@ -1,7 +1,6 @@
 from Boggle_GUI import BoggleGui
 from Boggle_Model import Boggle_Model
-from ex12_utils import *
-from boggle_board_randomizer import *
+from boggle_board_randomizer import randomize_board
 import tkinter as tk
 
 
@@ -81,7 +80,7 @@ class BoggleController:
     def set_gui_buttons_to_defualt(self):
         for cube in self.gui.cubes.keys():
             self.gui.cubes[cube]["state"] = "normal"
-            self.gui.cubes[cube].configure(fg="white", bg="DarkOrange1")
+            self.gui.cubes[cube].configure(fg="white", bg="Orange")
 
     def run(self):
         self.gui.run()
@@ -107,9 +106,8 @@ class BoggleController:
         self.restart()
 
 
-
-
-a = BoggleController()
-a.run()
+if __name__ == "__main__":
+    a = BoggleController()
+    a.run()
 
 

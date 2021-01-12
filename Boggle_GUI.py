@@ -15,13 +15,14 @@ class BoggleGui:
         self.set_root()
 
         self.play_button = tk.Button(text="play", font=("gisha", 26),
-                                     bg="azure",activebackground="lime green",
+                                     bg="azure", activebackground="lime green",
                                      command=self.show_main_game_screen)
         self.boggle_img = tk.PhotoImage(file="Edited.png")
         self.boggle_img = self.boggle_img.subsample(3)
 
-        self.welcome_label = tk.Label(image = self.boggle_img, text = "Let's play Boggle",
-                                      font=("gisha", 36), bg = "DeepSkyBlue2")
+        self.welcome_label = tk.Label(image=self.boggle_img,
+                                      text="Let's play Boggle",
+                                      font=("gisha", 36), bg="Orange")
         self.place_welcome_win()
 
         self.displays_frame = tk.Frame(self.root, bg="ivory2",
@@ -54,8 +55,7 @@ class BoggleGui:
         self.root.geometry("600x500")
         self.root.resizable(False, False)
         self.root.title("Boggle!")
-        self.root["bg"] = "DeepSkyBlue2"
-
+        self.root["bg"] = "Orange"
 
     def run(self):
         self.root.mainloop()
@@ -81,8 +81,8 @@ class BoggleGui:
 
     def make_cube(self, i, j):
         cube = tk.Button(self.grid_frame, text=self.board[i][j],
-                         font=("gisha", 24),fg= "white", bg="DarkOrange1",
-                         activebackground="DarkOrange3")
+                         font=("gisha", 24), fg="white", bg="Orange",
+                         activebackground="DarkOrange2")
         cube.grid(row=i, column=j, sticky=tk.NSEW)
         self.cubes[(i, j)] = cube
 
@@ -182,7 +182,7 @@ class BoggleGui:
         self.score_label.config(text=str(score))
 
     def go_to_finish_screen(self):
-        out_of_time_win = tk.Toplevel(borderwidth=100)
+        out_of_time_win = tk.Toplevel(borderwidth=100, bg = "Orange")
         out_of_time_win.title("OUT OF TIME")
         self.root.wm_attributes("-disabled", True)
 
@@ -191,25 +191,27 @@ class BoggleGui:
             self.root.destroy()
 
         popup_label = tk.Label(out_of_time_win, text="Time's up!",
-                               font=("Gisha", 24))
+                               font=("Gisha", 24), bg = "Orange")
         popup_label.pack()
         score_label = tk.Label(out_of_time_win,
                                text="Your final score is " +
                                     str(self.score_label.cget("text")),
-                               font=("Gisha", 36))
-        play_again_pop_up = tk.Button(out_of_time_win,text="play again",
-                                      command = self.play_again,
-                                       font=("Gisha", 24))
+                               font=("Gisha", 36), bg = "Orange")
+        play_again_pop_up = tk.Button(out_of_time_win, text="play again",
+                                      bg="azure", activebackground="lime green",
+                                      command=self.play_again,
+                                      font=("Gisha", 24))
         popup_button2 = tk.Button(out_of_time_win, text="Quit",
-                                  command=pop_pressed, font=("Gisha", 24))
+                                  command=pop_pressed, font=("Gisha", 24),
+                                  bg="azure", activebackground="lime green")
         score_label.pack()
-        play_again_pop_up.pack(side = "left")
-        popup_button2.pack(side = "right")
+        play_again_pop_up.pack(side="left")
+        popup_button2.pack(side="right")
 
     def gui_destroy(self):
         try:
             self.root.after_cancel(self.clock_after_id)
-        except:
+        except ValueError:
             pass
         finally:
             self.root.destroy()
