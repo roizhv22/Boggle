@@ -87,12 +87,13 @@ def get_score_from_word(word):
 
 if __name__ == '__main__':
     dict1 = load_words_dict("boggle_dict.txt")
-    board = [['B', 'R', 'O', 'L'],
-             ['R', 'E', 'V', 'N'],
-             ['S', 'E', 'U', 'E'],
-             ['P', 'N', 'H', 'S']]
+    dict2 = {"AAAAAAAAAAAA": True}
+    board = [['A', 'B', 'B', 'B'],
+             ['A', 'A', 'A', 'B'],
+             ['A', 'B', 'A', 'A'],
+             ['B', 'A', 'A', 'A']]
     board1 = randomize_board()
-    for line in board1:
+    for line in board:
         print(line)
 
     for i in range(3, 17):

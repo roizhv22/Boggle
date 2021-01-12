@@ -31,6 +31,12 @@ class BoggleController:
 
     def create_button_action(self, cube_cord):
         def action():
+            def _on_enter(event) -> None:
+                self.gui.cubes[cube]['background'] = "dark orange"
+
+            def _on_leave(event) -> None:
+                self.gui.cubes[cube]['background'] = "orange"
+
             self.gui.change_guess_box(self.model.dict_of_letters_and_coords[cube_cord])
             neighbors = self.model.return_all_neighbors(cube_cord)
             if self.clock_flag:
@@ -40,6 +46,7 @@ class BoggleController:
                 if cube in self.model.current_guess:
                     self.gui.cubes[cube]["state"] = "disabled"
                     self.gui.cubes[cube].config(bg="DarkOrange4")
+
                     self.gui.cubes[cube]["disabledforeground"] = "DarkOrange4"
 
                 elif cube in neighbors and cube not in self.model.current_guess:
@@ -49,6 +56,7 @@ class BoggleController:
                 else:
                     self.gui.cubes[cube]["state"] = "disabled"
                     self.gui.cubes[cube]["disabledforeground"] = "red3"
+
             self.model.current_guess.append(cube_cord)
 
         return action

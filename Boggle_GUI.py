@@ -117,7 +117,7 @@ class BoggleGui:
             else:
                 clock_time = clock_time[:2] + str(int(clock_time[2:]) - 1)
         self.clock_label["text"] = clock_time
-        self.clock_after_id = self.root.after(1000, self.clock_animate)
+        self.clock_after_id = self.root.after(10, self.clock_animate)
 
     def add_displays(self):
         self.add_clock()
@@ -135,7 +135,7 @@ class BoggleGui:
 
     def add_top_display(self):
         self.submit_button.config(text="Submit", font=("Gisha", 30),
-                                  bg="sky blue", activebackground="steelBlue")
+                                  bg="Orange", activebackground="DarkOrange2")
         self.submit_button.place(x=400, height=90, width=190)
         self.guess_box.config(font=("gisha", 24), borderwidth=5,
                               relief="ridge")
@@ -185,6 +185,7 @@ class BoggleGui:
         out_of_time_win = tk.Toplevel(borderwidth=100, bg = "Orange")
         out_of_time_win.title("OUT OF TIME")
         self.root.wm_attributes("-disabled", True)
+        out_of_time_win.protocol("WM_DELETE_WINDOW", self.gui_destroy)
 
         def pop_pressed():
             out_of_time_win.destroy()
