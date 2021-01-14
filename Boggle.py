@@ -36,13 +36,8 @@ class BoggleController:
         flag = False
         if len(self.hints) > 0:
             flag = True
-        count = 0
-        for hint in self.hints[:4]:
-            if count == 3:
-                break
-            else:
-                self.gui.hints += f"{hint}, "
-                count += 1
+        for hint in self.hints[:5]:
+            self.gui.hints += f"{hint}, "
 
         self.gui.hints = self.gui.hints[:-2]
 
@@ -120,7 +115,7 @@ class BoggleController:
         self.gui.play_again = self.play_again
         self.clock_flag = True
         self.create_menu()
-
+        self.hints = self.model.get_hint()
         self.run()
 
     def play_again(self):

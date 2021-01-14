@@ -1,5 +1,6 @@
 from boggle_board_randomizer import *
 
+
 def load_words_dict(file_path):
     words_dict = {}
     f = open(file_path, "r")
@@ -104,8 +105,6 @@ def _find_length_helper(letters_dict, n, board, words: dict, path, all_words,
                             the_word + letters_dict[(row - 1, col + 1)])
 
 
-
-
 if __name__ == '__main__':
     pass
 
@@ -114,7 +113,7 @@ if __name__ == '__main__':
     # "AAAAAA": True,"AAAAAAA":True, "AAAAAAAA" : True, "AAAAAAAAA": True,
     # "AAAAAAAAAA" : True,"AAAAAAAAAAA" : True, "AAAAAAAAAAAA" :
     # True,"AAAAAAAAAAAAA": True, "AAAAAAAAAAAAAA": True,
-    #"AAAAAAAAAAAAAAA": True, "AAAAAAAAAAAAAAAAAA": True}
+    # "AAAAAAAAAAAAAAA": True, "AAAAAAAAAAAAAAAAAA": True}
     # board = [['A', 'A', 'A', 'A'],
     #          ['A', 'A', 'A', 'A'],
     #          ['A', 'A', 'A', 'A'],
@@ -127,6 +126,3 @@ if __name__ == '__main__':
     # print(find_length_n_words1(5, board1, dict1))
     # end = time.time()
     # print(end - start)
-
-
-

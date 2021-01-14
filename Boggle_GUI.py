@@ -52,6 +52,7 @@ class BoggleGui:
         self.create_board()
 
         self.clock_after_id = ""
+        self.hint_after_id = ""
 
         self.play_again = ""
 
@@ -183,7 +184,7 @@ class BoggleGui:
         popup_label.pack()
         hints_label.pack()
 
-        pop_up.after(2000, destroy)
+        self.hint_after_id = pop_up.after(2000, destroy)
 
     def pop_up_guess(self, flag):
         def destroy():
@@ -255,6 +256,7 @@ class BoggleGui:
     def gui_destroy(self):
         try:
             self.root.after_cancel(self.clock_after_id)
+            self.root.after_cancel(self.hint_after_id)
         except ValueError:
             pass
         finally:
