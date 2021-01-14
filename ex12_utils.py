@@ -110,9 +110,11 @@ if __name__ == '__main__':
     pass
 
     # dict1 = load_words_dict("boggle_dict.txt")
-    # dict2 = {"A": True, "AA":True, "AAA": True, "AAAA":True, "AAAAA": True, "AAAAAA": True,"AAAAAAA":True, "AAAAAAAA" : True, "AAAAAAAAA": True, "AAAAAAAAAA" : True,
-    # "AAAAAAAAAAA" : True, "AAAAAAAAAAAA" : True,"AAAAAAAAAAAAA": True, "AAAAAAAAAAAAAA": True,
-    #          "AAAAAAAAAAAAAAA": True, "AAAAAAAAAAAAAAAAAA": True}
+    # dict2 = {"A": True, "AA":True, "AAA": True, "AAAA":True, "AAAAA": True,
+    # "AAAAAA": True,"AAAAAAA":True, "AAAAAAAA" : True, "AAAAAAAAA": True,
+    # "AAAAAAAAAA" : True,"AAAAAAAAAAA" : True, "AAAAAAAAAAAA" :
+    # True,"AAAAAAAAAAAAA": True, "AAAAAAAAAAAAAA": True,
+    #"AAAAAAAAAAAAAAA": True, "AAAAAAAAAAAAAAAAAA": True}
     # board = [['A', 'A', 'A', 'A'],
     #          ['A', 'A', 'A', 'A'],
     #          ['A', 'A', 'A', 'A'],

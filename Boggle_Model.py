@@ -1,7 +1,7 @@
 import ex12_utils as utils
 
 
-class Boggle_Model():
+class Boggle_Model:
     def __init__(self, file_path, board):
         self.board = board
         self.dict_of_letters_and_coords = {}
@@ -86,8 +86,3 @@ class Boggle_Model():
             else:
                 hints.append(a[0][0])
         return hints
-
-
-
-
-

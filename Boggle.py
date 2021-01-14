@@ -48,10 +48,10 @@ class BoggleController:
 
         self.gui.hint_pop_up(flag)
 
-
     def create_button_action(self, cube_cord):
         def action():
-            self.gui.change_guess_box(self.model.dict_of_letters_and_coords[cube_cord])
+            self.gui.change_guess_box(
+                self.model.dict_of_letters_and_coords[cube_cord])
             neighbors = self.model.return_all_neighbors(cube_cord)
             if self.clock_flag:
                 self.gui.clock_animate()
@@ -131,5 +131,3 @@ class BoggleController:
 if __name__ == "__main__":
     a = BoggleController()
     a.run()
-
-
