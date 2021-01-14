@@ -1,4 +1,3 @@
-from boggle_board_randomizer import randomize_board
 import ex12_utils as utils
 
 
@@ -77,4 +76,18 @@ class Boggle_Model():
     def choose_cube(self, cube_coord):
         self.current_guess.append(cube_coord)
         self.current_str += self.board[cube_coord[0]][cube_coord[1]]
+
+    def get_hint(self):
+        hints = []
+        for i in range(3, 7):
+            a = utils.find_length_n_words(i, self.board, self.words)
+            if not a:
+                continue
+            else:
+                hints.append(a[0][0])
+        return hints
+
+
+
+
 

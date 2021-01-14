@@ -18,6 +18,7 @@ class BoggleController:
         self.gui.play_again = self.play_again
 
         self.clock_flag = True
+        self.hints = self.model.get_hint()
 
         self.create_menu()
 
@@ -25,18 +26,31 @@ class BoggleController:
         menubar = tk.Menu(self.gui.root)
         game_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Game", menu=game_menu)
+        game_menu.add_command(label="Hint me!", command=self.get_hints)
         game_menu.add_command(label="Restart Game", command=self.play_again)
         game_menu.add_command(label="Quit", command=self.gui.gui_destroy)
         self.gui.root.config(menu=menubar)
 
+    def get_hints(self):
+        self.gui.hints = ""
+        flag = False
+        if len(self.hints) > 0:
+            flag = True
+        count = 0
+        for hint in self.hints[:4]:
+            if count == 3:
+                break
+            else:
+                self.gui.hints += f"{hint}, "
+                count += 1
+
+        self.gui.hints = self.gui.hints[:-2]
+
+        self.gui.hint_pop_up(flag)
+
+
     def create_button_action(self, cube_cord):
         def action():
-            def _on_enter(event) -> None:
-                self.gui.cubes[cube]['background'] = "dark orange"
-
-            def _on_leave(event) -> None:
-                self.gui.cubes[cube]['background'] = "orange"
-
             self.gui.change_guess_box(self.model.dict_of_letters_and_coords[cube_cord])
             neighbors = self.model.return_all_neighbors(cube_cord)
             if self.clock_flag:
