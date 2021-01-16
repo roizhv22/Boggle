@@ -54,6 +54,7 @@ class BoggleGui:
 
         self.clock_after_id = ""
         self.hint_after_id = ""
+        self.guess_after_id = ""
 
         self.play_again = ""
 
@@ -239,8 +240,6 @@ class BoggleGui:
         :param flag: A bool flag if hints are available.
         :return: None
         """
-        def destroy():
-            pop_up.destroy()
 
         pop_up = tk.Toplevel(borderwidth=20)
         pop_up.title("Hints!")
@@ -257,7 +256,10 @@ class BoggleGui:
         popup_label.pack()
         hints_label.pack()
 
-        self.hint_after_id = pop_up.after(2000, destroy)
+        def destroy():
+            pop_up.destroy()
+
+        self.hint_after_id = pop_up.after(1000, destroy)
 
     def pop_up_guess(self, flag):
         """
@@ -272,7 +274,7 @@ class BoggleGui:
         popup_label = tk.Label(pop_up, text="",
                                font=(DEFAULT_FONT, 15))
         popup_label.pack()
-        pop_up.after(500, destroy)
+        self.guess_after_id = pop_up.after(500, destroy)
         if flag == 0:
             pop_up.title("Correct!")
             popup_label.config(text="You got a word! "
@@ -348,6 +350,7 @@ class BoggleGui:
         try:
             self.root.after_cancel(self.clock_after_id)
             self.root.after_cancel(self.hint_after_id)
+            self.root.after_cancel(self.guess_after_id)
         except ValueError:
             pass
         finally:

@@ -116,7 +116,7 @@ class Boggle_Model:
         :return: hints list.
         """
         hints = []
-        for i in range(3, 7):
+        for i in range(3, 6):
             a = utils.find_length_n_words(i, self.board, self.words)
             if not a:
                 continue
