@@ -2,6 +2,11 @@ from boggle_board_randomizer import *
 
 
 def load_words_dict(file_path):
+    """
+    Loading all the relevant words from a file to a dict.
+    :param file_path: words file path.
+    :return: a dictionary with words as key and True as value.
+    """
     words_dict = {}
     f = open(file_path, "r")
     for line in f.readlines():
@@ -11,11 +16,25 @@ def load_words_dict(file_path):
 
 
 def is_word_valid(word, words):
+    """
+    A function that checks if a given word in the word dict that was given.
+    :param word: str
+    :param words: word dict
+    :return: bool value.
+    """
     if word in words.keys():
         return True
 
 
 def is_valid_path(board, path, words):
+    """
+    This function checks if the path that was given is valid, by checking if
+    the word that is being created by the path and board in the words dict.
+    :param board: a 2D matrix representing the playing board.
+    :param path: a list of coords on the board.
+    :param words: words dict.
+    :return: The word if on the dict or None.
+    """
     word = ""
     used_coord = []
     if check_if_path_is_valid(path):
@@ -34,6 +53,12 @@ def is_valid_path(board, path, words):
 
 
 def check_if_path_is_valid(path):
+    """
+    helepr function that check if a given path is valid by the given
+    instructions.
+    :param path: list of coords
+    :return: Bool value
+    """
     for i in range(1, len(path)):
         first_row, first_col = path[i - 1]
         sec_row, sec_col = path[i]
@@ -43,6 +68,15 @@ def check_if_path_is_valid(path):
 
 
 def find_length_n_words(n, board, words):
+    """
+    Recursive function that find all the n lengthened words that are currently
+    on the board. Due to high number of calculations that is needed,
+    running time might be high.
+    :param n: length of a general word
+    :param board: 2D matrix representing the playing board.
+    :param words: words dict.
+    :return:
+    """
     letters_dict = dict()
     for row in range(len(board)):
         for col in range(len(board[0])):
@@ -57,6 +91,19 @@ def find_length_n_words(n, board, words):
 
 def _find_length_helper(letters_dict, n, board, words: dict, path, all_words,
                         row, col, the_word):
+    """
+    Helper function that perform the recursion.
+    :param letters_dict: A dict that bind coords to letters on the board.
+    :param n: length of the word
+    :param board: Board as 2d matrix
+    :param words: words dict
+    :param path: coords path
+    :param all_words: list of the final product.
+    :param row: num of row
+    :param col: num of col
+    :param the_word: the word that is being generated.
+    :return: None
+    """
     if not 0 <= row <= 3 or not 0 <= col <= 3:
         return
     if (row, col) in path[:-1]:
@@ -108,21 +155,3 @@ def _find_length_helper(letters_dict, n, board, words: dict, path, all_words,
 if __name__ == '__main__':
     pass
 
-    # dict1 = load_words_dict("boggle_dict.txt")
-    # dict2 = {"A": True, "AA":True, "AAA": True, "AAAA":True, "AAAAA": True,
-    # "AAAAAA": True,"AAAAAAA":True, "AAAAAAAA" : True, "AAAAAAAAA": True,
-    # "AAAAAAAAAA" : True,"AAAAAAAAAAA" : True, "AAAAAAAAAAAA" :
-    # True,"AAAAAAAAAAAAA": True, "AAAAAAAAAAAAAA": True,
-    # "AAAAAAAAAAAAAAA": True, "AAAAAAAAAAAAAAAAAA": True}
-    # board = [['A', 'A', 'A', 'A'],
-    #          ['A', 'A', 'A', 'A'],
-    #          ['A', 'A', 'A', 'A'],
-    #          ['A', 'A', 'A', 'A']]
-    # board1 = randomize_board()
-    # for line in board1:
-    #     print(line)
-    # start = time.time()
-    # for i in range(8,12):
-    # print(find_length_n_words1(5, board1, dict1))
-    # end = time.time()
-    # print(end - start)
