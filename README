@@ -1,1 +1,21 @@
-<Describe your project's features here>
+Boggle Game - roizhv22 / Tzvi.simons
+
+First of all we split the game into different screens,
+as the game starts running there is the welcome screen,
+from which the player can move to the game screen by pressing the play button.
+
+Then our main the player is welcomed with the main screen that includes the
+board,timer, score and more.
+
+One of our special feature is the sounds added to the game, using the pygame
+module, which corresponds to the users actions.
+
+The game also includes a menu bar that allow the player to quit restart or
+ask for some hints. The hint feature pops up a three random words which for a
+short time.
+
+When the time ends, the player will be moved to the finish screen when the
+score will be presented and player will have the possibilities to restart or
+quit.
+
+The game was written with 3 main modules Controller (boggle.py) GUI and model.
