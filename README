@@ -1,21 +1,11 @@
-Boggle Game - roizhv22 / Tzvi.simons
+# Final project Intro2CS – a complete Boggle game.
 
-First of all we split the game into different screens,
-as the game starts running there is the welcome screen,
-from which the player can move to the game screen by pressing the play button.
+We use Tkinter and Pygame libraries to create a complete Boggle game. 
+As you can observe I split the code into 3 main files – GUI, Controller and Runner. 
+We were given a free hand in this project with no restrictions, so every decision that was made (design / implementation) was solely made by me. 
 
-Then our main the player is welcomed with the main screen that includes the
-board,timer, score and more.
+I added some visualization features, like disabling buttons that cannot be chosen and more.
 
-One of our special feature is the sounds added to the game, using the pygame
-module, which corresponds to the users actions.
+There is also a version that was strapped with pyinstaller to create an exe for the game, can be sent with needed. 
 
-The game also includes a menu bar that allow the player to quit restart or
-ask for some hints. The hint feature pops up a three random words which for a
-short time.
 
-When the time ends, the player will be moved to the finish screen when the
-score will be presented and player will have the possibilities to restart or
-quit.
-
-The game was written with 3 main modules Controller (boggle.py) GUI and model.
